@@ -1,13 +1,17 @@
 # Placement Prediction using Machine Learning
 
-This project focuses on predicting student placement and salary in campus recruitment using Random Forest classifiers. The goal is to help students and educational institutions understand the factors that influence placement success and expected salary.
+This project predicts whether a student is likely to be placed and estimates their potential salary using machine learning models. It is designed to help students and educational institutions assess placement readiness and improve outcomes using data-driven insights.
 
-## Final Result
-<img src="static/images/pl1.png" alt="Alt text" width=100%>
-<img src="static/images/pl2.png" alt="Alt text" width=100%>
-<img src="static/images/pl3.png" alt="Alt text" width=100%>
+## 🔍 Final Result
 
-## Table of Contents
+<img src="static/images/pl1.jpg" alt="Placement Form" width="100%">
+<img src="static/images/pl2.jpg" alt="Prediction Output" width="100%">
+<img src="static/images/pl3.jpg" alt="Result Page" width="100%">
+
+---
+
+## 📌 Table of Contents
+
 - [Overview](#overview)
 - [Dataset](#dataset)
 - [Installation](#installation)
@@ -16,108 +20,154 @@ This project focuses on predicting student placement and salary in campus recrui
 - [Model Training](#model-training)
 - [Evaluation](#evaluation)
 - [Results](#results)
-- [Contributing](#contributing)
-- [License](#license)
+- [Flask App](#flask-app)
 
-## Overview
 
-Campus placement is a crucial event for students and educational institutions. Predicting placement outcomes and potential salaries can help students prepare better and institutions improve their placement strategies. This project uses Random Forest classifiers to predict both placement probability and expected salary based on various student features.
+---
 
-## Dataset
+## 📘 Overview
 
-The dataset used in this project includes student information such as:
-- Academic performance (CGPA)
-- Skills
-- Weather the Candidate has done Intership
-- Weather the Candidate has Participated in hackathons
-- Other relevant features
+Campus placement is one of the most important phases for students. By analyzing a student's academic and extracurricular background, we can predict their placement chances and estimated salary using machine learning. The project includes both model training and deployment through a Flask-based web app.
 
-The dataset contains features for predicting both placement status and salary.
+---
 
-## Installation
+## 📊 Dataset
 
-To run this project locally, follow these steps:
+The dataset includes the following features:
+- Academic metrics (CGPA, percentage scores)
+- Number of projects and mini-projects
+- Technical skills (counted from a comma-separated list)
+- Communication skills
+- Internships and hackathons
+- Number of backlogs
+- Placement status and salary (for supervised training)
 
-1. Clone the repository:
+Separate datasets were used for:
+- **Placement prediction**
+- **Salary prediction**
+
+---
+
+## 🛠️ Installation
+
+To run this project locally:
+
+1. **Clone the repository**:
+   ```bash
    git clone https://github.com/charans2702/Placement_Prediction_Using_Machine-Learning.git
-   
-2. Install the required packages:
+   cd Placement_Prediction_Using_Machine-Learning
+````
+
+2. **Install required packages**:
+
+   ```bash
    pip install -r requirements.txt
+   ```
 
-## Project Structure
+3. **Run the Flask app**:
 
-- `static/`: Contains images and css files
-- `templates/`: Contains HTML files
-- `app.py`: Main Flask App
-- `model.pkl`: Pickle file of predicting placement model
-- `model1.pkl`: Pickle file of Salary Prediction model
-- `Placement_prediction_data.csv`: Placement Prediction data
-- `Placement_prediction.py`: Model for Placement Prediction
-- `preprocessing.ipynb`: Jupyter Notebook for Data preprocessing
-- `requirements.txt`: List of required Python packages
-- `salary_prediction_data.csv`: Salary prediction data
-- `salary_prediction.py`: Model for salary prediction
-- `README.md`: Project documentation
+   ```bash
+   python app.py
+   ```
 
-## Data Preprocessing
+---
 
-The data preprocessing steps include:
-1. Handling missing values
-2. Encoding categorical variables
-3. Feature scaling
-4. Feature selection
+## 📁 Project Structure
 
-## Model Training
+```
+Placement_Prediction_Using_Machine-Learning/
+│
+├── static/                     # Static assets (images, CSS)
+│   └── images/
+├── templates/                  # HTML templates
+│   ├── home.html
+│   ├── about.html
+│   ├── index.html
+│   └── out.html                ✅ Required for displaying results
+│
+├── app.py                      # Flask application
+├── model.pkl                   # Placement prediction model
+├── model1.pkl                  # Salary prediction model
+├── Placement_prediction_data.csv
+├── Placement_prediction.py     # Model training script for placement
+├── salary_prediction_data.csv
+├── salary_prediction.py        # Model training script for salary
+├── preprocessing.ipynb         # Data cleaning and preparation
+├── requirements.txt
+└── README.md
+```
 
-Two Random Forest classifiers are trained:
-1. Placement Prediction Model: Predicts whether a student will be placed
-2. Salary Prediction Model: Predicts the salary for placed students
+---
 
-The training process involves:
-1. Splitting the data into training and testing sets
-2. Initializing the Random Forest classifiers
-3. Training the models on the training set
-4. Fine-tuning hyperparameters using techniques like Grid Search or Random Search
+## ⚙️ Data Preprocessing
 
-## Evaluation
+The preprocessing includes:
 
-The models' performance is evaluated using various metrics, including:
-- Accuracy
-- Precision
-- Recall
-- F1 Score
-- Confusion Matrix
-- Roc_Auc_Score
+* Handling missing/null values
+* Label encoding or one-hot encoding of categorical fields
+* Normalizing numerical features (if needed)
+* Converting comma-separated skills into a count value
 
-## Results
+---
 
-### Placement Prediction Model
-- Accuracy: 88.7%
-- Precision: 0.93
-- Recall: 0.86
-- F1 Score: 0.90
-- Roc_Auc_Score:0.94
+## 🤖 Model Training
 
-**CONFUSION MATRIX**:
+Two models were trained using Random Forest Classifiers:
 
-<img src="static/images/confusion_matrix.png " alt="Alt text" width="400" height="400">
+1. **Placement Prediction Model** – Classifies students as `Placed` or `Not Placed`.
+2. **Salary Prediction Model** – Regresses the estimated salary based on student metrics and placement status.
 
-**ROC CURVE**:
+Steps:
 
-<img src="static/images/roc_curve.png " alt="Alt text" width="500" height="400">
+* Train-test split
+* Model training
+* Hyperparameter tuning
+* Saving models using `pickle`
 
-**FEATURE IMPORTANCE**:
+---
 
-<img src="static/images/feature_importance.png " alt="Alt text">
+## 📈 Evaluation
 
-## Flask App
+Metrics used for placement classification:
 
-The trained models are deployed using a Flask web application. The app allows users to input student details and receive predictions for placement probability and expected salary.
+* Accuracy: **88.7%**
+* Precision: **0.93**
+* Recall: **0.86**
+* F1 Score: **0.90**
+* ROC AUC Score: **0.94**
 
-## Contributing
+### 📊 Confusion Matrix
 
-Contributions are welcome! Please feel free to submit a Pull Request or open an Issue.
+<img src="static/images/confusion_matrix.png" alt="Confusion Matrix" width="400">
 
-## License
+### 📊 ROC Curve
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+<img src="static/images/roc_curve.png" alt="ROC Curve" width="500">
+
+### 📊 Feature Importance
+
+<img src="static/images/feature_importance.png" alt="Feature Importance">
+
+---
+
+## 🌐 Flask App
+
+The web app provides:
+
+* A clean UI to enter student details
+* Placement prediction
+* Salary estimation (if placed)
+* User-friendly results shown on `out.html`
+
+You can access different pages:
+
+* `/` → Home
+* `/index` → Form input page
+* `/about` → About the project
+* `/predict` → Trigger model predictions
+
+---
+
+## 🤝 Contributing
+
+Feel free to fork this repository and submit pull requests or open issues for improvements, bug fixes, or feature requests.
